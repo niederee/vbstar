@@ -1,10 +1,9 @@
 '***** VBSTAR
 '*****
 '*********************************************
-
 function to_date(dateval,conv_str)
 if not isdate(dateval) then
-to_date = "Invalid Date"
+to_date = "Invalid Date: " & dateval
 exit function
 end if 
 dateval = cdate(dateval)
@@ -78,3 +77,16 @@ If Len(Charcnt) Then
     CharCntr = UBound(Split(StringVal, Charcnt))
 End If
 End Function
+
+Function fileToMem(file)
+set fso = CreateObject("Scripting.FileSystemObject")
+ForReading=1
+ForWriting=2
+ForAppending=8
+Unicode=-1
+ASCII=0
+set fsoFile = fso.OpenTextFile(file,ForReading,ASCII)
+fileToMem = fsoFile.ReadAll
+set fsoFile = nothing
+End Function
+
