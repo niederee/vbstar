@@ -1,6 +1,7 @@
 '***** VBSTAR
 '*****
 '*********************************************
+
 function to_date(dateval,conv_str)
 if not isdate(dateval) then
 to_date = "Invalid Date: " & dateval
@@ -90,3 +91,9 @@ fileToMem = fsoFile.ReadAll
 set fsoFile = nothing
 End Function
 
+Function memToFile(mem,file)
+set fso = CreateObject("Scripting.FileSystemObject")
+set fsoFile = fso.CreateTextFile(file,True)
+fsoFile.Write mem
+set fsoFile = nothing
+End Function
