@@ -65,6 +65,16 @@ secondcnt =  CharCntr(conv_str, "S")
  to_date = replace(to_date,string(monthcnt,"N"),minuteval)
  to_date = replace(to_date,string(monthcnt,"S"),secondval)
 
+ set dateval = nothing
+ set yearcnt = nothing
+ set montval = nothing
+ set dayval = nothing
+ set hourval = nothing
+ set minuteval = nothing
+ set secondval = nothing
+ set yearval = nothing
+ set monthcnt = nothing
+
 end function
 
 Function LPad(s, l, c)
@@ -95,5 +105,32 @@ Function memToFile(mem,file)
 set fso = CreateObject("Scripting.FileSystemObject")
 set fsoFile = fso.CreateTextFile(file,True)
 fsoFile.Write mem
+wscript.echo "File Created"
 set fsoFile = nothing
+End Function
+
+Function UTC(dateval)
+if not isdate(dateval) then
+UTC = "Invalid Date: " & dateval
+exit function
+end if 
+Set dateTime = CreateObject("WbemScripting.SWbemDateTime")  
+dateval = cdate(dateval)
+dateTime.SetVarDate (dateval)
+UTC = dateTime.GetVarDate (false)
+set dateval = nothing
+set dateTime = nothing
+End Function
+
+Function UTCtoLocal(dateval)
+if not isdate(dateval) then
+UTC = "Invalid Date: " & dateval
+exit function
+end if 
+Set dateTime = CreateObject("WbemScripting.SWbemDateTime")  
+dateval = cdate(dateval)
+dateTime.SetVarDate dateval,false
+UTCtoLocal = dateTime.GetVarDate (true)
+set dateval = nothing
+set dateTime = nothing
 End Function
